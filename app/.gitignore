@@ -1,0 +1,5 @@
+node_modules/
+.env
+curl-test
+.eslintrc.json
+package-lock.json
