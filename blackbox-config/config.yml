@@ -1,0 +1,36 @@
+modules:
+  http_2xx:
+    prober: http
+    timeout: 5s
+    http:
+      preferred_ip_protocol: ip4
+
+  tcp:
+    prober: tcp
+    tcp:
+      preferred_ip_protocol: ip4
+      insecure_skip_verify: true
+      tls: (false|true) # Whether or not TLS is used when the connection is initiated.
+      tls_config:
+        insecure_skip_verify: <boolean> | default = false 
+        ca_file: <filename>
+        cert_file: <filename>
+        key_file: <filename>
+        server_name: <string>
+
+  icmp:
+    prober: icmp
+    icmp:
+     preferred_ip_protocol: ip4
+
+  dns:
+    prober: dns
+    dns:
+      preferred_ip_protocol: ip4
+      dns_over_tls: <boolean | default = false>
+      tls_config:
+        insecure_skip_verify: <boolean> | default = false 
+        ca_file: <filename>
+        cert_file: <filename>
+        key_file: <filename>
+        server_name: <string>

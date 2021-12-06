@@ -1,0 +1,39 @@
+---
+- name: adding blackbox node to ecosystem
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Update & install docker
+    apt:
+      name: docker.io
+      update_cache: yes
+
+  - name: Create blackbox directory if it does not exist
+    file:
+      path: ~/blackbox
+      state: directory
+
+  - name: copy docker-compose
+    copy:
+      src: ./docker-compose.yml
+      dest: ~/blackbox/docker-compose.yml
+
+  - name: copy blackbox configuration file
+    copy:
+      src: ./blackbox.yaml
+      dest: ~/blackbox/blackbox.yaml
+
+  - name: install docker-compose
+    become: true
+    command: curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+ 
+  - name: make docker-compose executable
+    command: chmod +x /usr/local/bin/docker-compose
+
+  - name: run blackbox countainer
+    command: docker-compose -f ~/blackbox/docker-compose.yml up -d
+
+
+# run this like below
+# ansible-playbook  -u a   blackbox_install.yml -K
