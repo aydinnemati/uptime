@@ -1,0 +1,394 @@
+
+global:
+  scrape_interval: 15s
+scrape_configs:
+    
+  - job_name: 'blackbox-icmp-undefined'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8
+        - 1.1.1.1
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: icmp_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-dns-undefined'
+    metrics_path: /probe
+    params:
+      module: [dns]
+    static_configs:
+      - targets:
+
+        - google.com
+        - github.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: dns_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-tcp-undefined'
+    metrics_path: /probe
+    params:
+      module: [tcp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8:80
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: tcp_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-http-undefined'
+    metrics_path: /probe
+    params:
+      module: [http]
+    static_configs:
+      - targets:
+
+        - google.com/robots.txt
+        - github.com/robots.txt
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: http_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-icmp-undefined'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8
+        - 1.1.1.1
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: icmp_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-dns-undefined'
+    metrics_path: /probe
+    params:
+      module: [dns]
+    static_configs:
+      - targets:
+
+        - google.com
+        - github.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: dns_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-tcp-undefined'
+    metrics_path: /probe
+    params:
+      module: [tcp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8:80
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: tcp_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-http-undefined'
+    metrics_path: /probe
+    params:
+      module: [http]
+    static_configs:
+      - targets:
+
+        - google.com/robots.txt
+        - github.com/robots.txt
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: http_lable
+      - target_label: __address__
+        replacement: undefined:undefined
+
+  - job_name: 'blackbox-icmp-node01'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: icmp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-dns-node01'
+    metrics_path: /probe
+    params:
+      module: [dns]
+    static_configs:
+      - targets:
+
+        - google.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: dns_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-tcp-node01'
+    metrics_path: /probe
+    params:
+      module: [tcp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8:80
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: tcp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-http-node01'
+    metrics_path: /probe
+    params:
+      module: [http]
+    static_configs:
+      - targets:
+
+        - google.com/robots.txt
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: http_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-icmp-node01'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: icmp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-dns-node01'
+    metrics_path: /probe
+    params:
+      module: [dns]
+    static_configs:
+      - targets:
+
+        - google.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: dns_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-tcp-node01'
+    metrics_path: /probe
+    params:
+      module: [tcp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8:80
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: tcp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-http-node01'
+    metrics_path: /probe
+    params:
+      module: [http]
+    static_configs:
+      - targets:
+
+        - google.com/robots.txt
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: http_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-icmp-node01'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: icmp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-dns-node01'
+    metrics_path: /probe
+    params:
+      module: [dns]
+    static_configs:
+      - targets:
+
+        - google.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: dns_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-tcp-node01'
+    metrics_path: /probe
+    params:
+      module: [tcp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8:80
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: tcp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-http-node01'
+    metrics_path: /probe
+    params:
+      module: [http]
+    static_configs:
+      - targets:
+
+        - google.com/robots.txt
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: http_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-icmp-node01'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: icmp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-dns-node01'
+    metrics_path: /probe
+    params:
+      module: [dns]
+    static_configs:
+      - targets:
+
+        - google.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: dns_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-tcp-node01'
+    metrics_path: /probe
+    params:
+      module: [tcp]
+    static_configs:
+      - targets:
+
+        - 8.8.8.8:80
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: tcp_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115
+
+  - job_name: 'blackbox-http-node01'
+    metrics_path: /probe
+    params:
+      module: [http]
+    static_configs:
+      - targets:
+
+        - google.com/robots.txt
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: http_lable
+      - target_label: __address__
+        replacement: 10.0.10.125:9115

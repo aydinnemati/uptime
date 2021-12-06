@@ -2,46 +2,59 @@ const fs = require('fs');
 const { Module } = require('module');
 require('dotenv').config()
 
+const nodesarray = [
+  {'node01': {
+    'name': 'node01',
+    'ip': '10.0.10.125',
+    'port': '9115',
+    }
+  },
+  {'node02': {
+    'name': 'node02',
+    'ip': '10.0.10.127',
+    'port': '9115',
+    }
+  },
+]
+
 const hostsArray = [
     {
         'http': {
             'endpoint': 'google.com/robots.txt',
-            'todo': 1,
             },
         'tcp': {
                 'tcp_ip': '8.8.8.8',
                 'tcp_port': '80',
-                'todo': 0,
         },
         'dns': {
                 'domain': 'google.com',
-                'todo': 1,
             },
         'icmp': {
                 'icmp_ip': '8.8.8.8',
-                'todo': 0,
         }
     },
     {
         'http': {
             'endpoint': 'github.com/robots.txt',
-            'todo': 1,
             },
         // 'tcp': {
         //         'tcp_ip': '1.1.1.1',
         //         'tcp_port': '80',
-        //         'todo': 1,
         // },
         'dns': {
                 'domain': 'github.com',
-                'todo': 1,
             },
         'icmp': {
                 'icmp_ip': '1.1.1.1',
-                'todo': 1,
         }
     },
 ];
+
+const reqObject = {
+  'nodes': nodesarray,
+  'hosts': hostsArray,
+}
+
 
 let configFileString = '';
 
@@ -51,10 +64,12 @@ global:
 scrape_configs:
     `
 
-function configGenerator(hostsArray) {
+function configGenerator(reqObject) {
+  // console.log(reqObject.nodes)
+  reqObject.nodes.forEach(node => {
     ['icmp', 'dns', 'tcp', 'http'].forEach(BB_module => {
         const module_icmp_lvl01 = `
-  - job_name: 'blackbox-${BB_module}'
+  - job_name: 'blackbox-${BB_module}-${node.name}'
     metrics_path: /probe
     params:
       module: [${BB_module}]
@@ -63,10 +78,7 @@ function configGenerator(hostsArray) {
 `
     let modules_targets = ''
 
-    hostsArray.forEach(host => {
-        // console.log(host);
-        // console.log(BB_module.todo == 1);
-        // if (host[BB_module].todo == 1)
+    reqObject.hosts.forEach(host => {
         if (BB_module in host) {
         if (BB_module === 'icmp') {
         modules_targets = modules_targets+`
@@ -93,14 +105,16 @@ function configGenerator(hostsArray) {
       - source_labels: [__param_target]
         target_label: ${BB_module}_lable
       - target_label: __address__
-        replacement: 10.0.10.125:9115
+        replacement: ${node.ip}:${node.port}
 `
     configFileString = configFileString+module_icmp_lvl01+modules_targets+module_icmp_lvl02;
-    // const newConfig = global_statics_lvl01+configFileString
+    console.log(configFileString+"===========")
     })
-console.log(global_statics_lvl01+configFileString)
+})
+// console.log(global_statics_lvl01+configFileString)
 return global_statics_lvl01+configFileString;
 }
-// configGenerator(hostsArray)
+
+configGenerator(reqObject)
 
 module.exports = configGenerator;

@@ -1,5 +1,6 @@
 const fastify = require('fastify')();
-const hostsArrayModel = require('./models/hostsModel');
+const hostsModel = require('./models/hostsModel');
+const nodesModel = require('./models/nodesModel');
 const configGenerator = require('./functions/configGenerator');
 const fs = require('fs');
 const {Docker} = require('node-docker-api');
@@ -9,7 +10,10 @@ const docker = new Docker({ socketPath: '/var/run/docker.sock' });
 require('dotenv').config()
 
 const schema = {
-body: hostsArrayModel,
+    body: {
+        'nodes': nodesModel,
+        'hosts': hostsModel,
+    }
 }
 
 
