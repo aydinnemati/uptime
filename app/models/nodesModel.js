@@ -13,9 +13,6 @@ const nodesModel = {
             'port': {
                 type: 'string',
                 },
-            'enabled': {
-                type: 'boolean',
-                },
             },
         }
     }
