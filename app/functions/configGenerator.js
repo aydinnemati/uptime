@@ -2,58 +2,58 @@ const fs = require('fs');
 const { Module } = require('module');
 require('dotenv').config()
 
-const nodesarray = [
-  {'node01': {
-    'name': 'node01',
-    'ip': '10.0.10.125',
-    'port': '9115',
-    }
-  },
-  {'node02': {
-    'name': 'node02',
-    'ip': '10.0.10.127',
-    'port': '9115',
-    }
-  },
-]
+// const nodesarray = [
+//   {'node01': {
+//     'name': 'node01',
+//     'ip': '10.0.10.125',
+//     'port': '9115',
+//     }
+//   },
+//   {'node02': {
+//     'name': 'node02',
+//     'ip': '10.0.10.127',
+//     'port': '9115',
+//     }
+//   },
+// ]
 
-const hostsArray = [
-    {
-        'http': {
-            'endpoint': 'google.com/robots.txt',
-            },
-        'tcp': {
-                'tcp_ip': '8.8.8.8',
-                'tcp_port': '80',
-        },
-        'dns': {
-                'domain': 'google.com',
-            },
-        'icmp': {
-                'icmp_ip': '8.8.8.8',
-        }
-    },
-    {
-        'http': {
-            'endpoint': 'github.com/robots.txt',
-            },
-        // 'tcp': {
-        //         'tcp_ip': '1.1.1.1',
-        //         'tcp_port': '80',
-        // },
-        'dns': {
-                'domain': 'github.com',
-            },
-        'icmp': {
-                'icmp_ip': '1.1.1.1',
-        }
-    },
-];
+// const hostsArray = [
+//     {
+//         'http': {
+//             'endpoint': 'google.com/robots.txt',
+//             },
+//         'tcp': {
+//                 'tcp_ip': '8.8.8.8',
+//                 'tcp_port': '80',
+//         },
+//         'dns': {
+//                 'domain': 'google.com',
+//             },
+//         'icmp': {
+//                 'icmp_ip': '8.8.8.8',
+//         }
+//     },
+//     {
+//         'http': {
+//             'endpoint': 'github.com/robots.txt',
+//             },
+//         // 'tcp': {
+//         //         'tcp_ip': '1.1.1.1',
+//         //         'tcp_port': '80',
+//         // },
+//         'dns': {
+//                 'domain': 'github.com',
+//             },
+//         'icmp': {
+//                 'icmp_ip': '1.1.1.1',
+//         }
+//     },
+// ];
 
-const reqObject = {
-  'nodes': nodesarray,
-  'hosts': hostsArray,
-}
+// const reqObject = {
+//   'nodes': nodesarray,
+//   'hosts': hostsArray,
+// }
 
 
 let configFileString = '';
@@ -65,11 +65,12 @@ scrape_configs:
     `
 
 function configGenerator(reqObject) {
+  let configArry = []
   // console.log(reqObject.nodes)
   reqObject.nodes.forEach(node => {
     ['icmp', 'dns', 'tcp', 'http'].forEach(BB_module => {
         const module_icmp_lvl01 = `
-  - job_name: 'blackbox-${BB_module}-${node.name}'
+  - job_name: '${node.name}-${BB_module}'
     metrics_path: /probe
     params:
       module: [${BB_module}]
@@ -107,14 +108,21 @@ function configGenerator(reqObject) {
       - target_label: __address__
         replacement: ${node.ip}:${node.port}
 `
-    configFileString = configFileString+module_icmp_lvl01+modules_targets+module_icmp_lvl02;
-    console.log(configFileString+"===========")
+    // configFileString = configFileString+module_icmp_lvl01+modules_targets+module_icmp_lvl02;
+    configFileString = module_icmp_lvl01+modules_targets+module_icmp_lvl02;
+    configArry.push(configFileString)
+
+    // console.log(configFileString+"===========")
     })
 })
+console.log(configArry)
+
 // console.log(global_statics_lvl01+configFileString)
-return global_statics_lvl01+configFileString;
+// return global_statics_lvl01+configFileString;
+return global_statics_lvl01+configArry.join('')
+
 }
 
-configGenerator(reqObject)
+// configGenerator(reqObject)
 
 module.exports = configGenerator;
