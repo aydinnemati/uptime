@@ -58,7 +58,7 @@ require('dotenv').config()
 
 let configFileString = '';
 
-const global_statics_lvl01 = `
+const globalConfig = `
 global:
   scrape_interval: 15s
 scrape_configs:
@@ -69,13 +69,13 @@ function configGenerator(reqObject) {
   // console.log(reqObject.nodes)
   reqObject.nodes.forEach(node => {
     ['icmp', 'dns', 'tcp', 'http'].forEach(BB_module => {
-        const module_icmp_lvl01 = `
+        const jobs = `
   - job_name: '${node.name}-${BB_module}'
     metrics_path: /probe
     params:
       module: [${BB_module}]
     static_configs:
-      - targets:
+      - targets:clear
 `
     let modules_targets = ''
 
@@ -108,21 +108,12 @@ function configGenerator(reqObject) {
       - target_label: __address__
         replacement: ${node.ip}:${node.port}
 `
-    // configFileString = configFileString+module_icmp_lvl01+modules_targets+module_icmp_lvl02;
-    configFileString = module_icmp_lvl01+modules_targets+module_icmp_lvl02;
+    configFileString = jobs+modules_targets+module_icmp_lvl02;
     configArry.push(configFileString)
-
-    // console.log(configFileString+"===========")
     })
 })
 console.log(configArry)
-
-// console.log(global_statics_lvl01+configFileString)
-// return global_statics_lvl01+configFileString;
-return global_statics_lvl01+configArry.join('')
-
+return globalConfig+configArry.join('')
 }
-
 // configGenerator(reqObject)
-
 module.exports = configGenerator;
