@@ -8,7 +8,7 @@ scrape_configs:
     params:
       module: [icmp]
     static_configs:
-      - targets:
+      - targets:clear
 
         - 8.8.8.8
     relabel_configs:
@@ -24,7 +24,7 @@ scrape_configs:
     params:
       module: [dns]
     static_configs:
-      - targets:
+      - targets:clear
 
         - google.com
     relabel_configs:
@@ -40,7 +40,7 @@ scrape_configs:
     params:
       module: [tcp]
     static_configs:
-      - targets:
+      - targets:clear
 
         - 8.8.8.8:80
     relabel_configs:
@@ -56,7 +56,7 @@ scrape_configs:
     params:
       module: [http]
     static_configs:
-      - targets:
+      - targets:clear
 
         - google.com/robots.txt
     relabel_configs:
@@ -66,67 +66,3 @@ scrape_configs:
         target_label: http_lable
       - target_label: __address__
         replacement: 10.0.10.125:9115
-
-  - job_name: 'node02-icmp'
-    metrics_path: /probe
-    params:
-      module: [icmp]
-    static_configs:
-      - targets:
-
-        - 8.8.8.8
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: icmp_lable
-      - target_label: __address__
-        replacement: 333.444.555.777:9815
-
-  - job_name: 'node02-dns'
-    metrics_path: /probe
-    params:
-      module: [dns]
-    static_configs:
-      - targets:
-
-        - google.com
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: dns_lable
-      - target_label: __address__
-        replacement: 333.444.555.777:9815
-
-  - job_name: 'node02-tcp'
-    metrics_path: /probe
-    params:
-      module: [tcp]
-    static_configs:
-      - targets:
-
-        - 8.8.8.8:80
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: tcp_lable
-      - target_label: __address__
-        replacement: 333.444.555.777:9815
-
-  - job_name: 'node02-http'
-    metrics_path: /probe
-    params:
-      module: [http]
-    static_configs:
-      - targets:
-
-        - google.com/robots.txt
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: http_lable
-      - target_label: __address__
-        replacement: 333.444.555.777:9815

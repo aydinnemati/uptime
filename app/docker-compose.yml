@@ -3,8 +3,8 @@ services:
     app:
         volumes:
             - .env:/app/.env
-        container_name: app
+        container_name: z_configapp
         restart: always
         ports:
             - 3000:3000
-        image: app-uptime:latest
+        image: configapp:latest

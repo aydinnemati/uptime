@@ -9,9 +9,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "dockerode": "^3",
+    "dockerode-compose": "^1",
     "dotenv": "^10",
     "fastify": "^3",
-    "node-docker-api": "^1",
     "nodemon": "^2"
   },
   "devDependencies": {
