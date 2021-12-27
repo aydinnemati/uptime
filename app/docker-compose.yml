@@ -3,6 +3,9 @@ services:
     app:
         volumes:
             - .env:/app/.env
+            - /home/a/configapp/uptime-main/app/logs/:/app/logs/
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /home/a/prometheus:/app/prometheus/
         container_name: z_configapp
         restart: always
         ports:
