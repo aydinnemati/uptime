@@ -6,8 +6,9 @@ services:
             - /home/a/configapp/uptime-main/app/logs/:/app/logs/
             - /var/run/docker.sock:/var/run/docker.sock
             - /home/a/prometheus:/app/prometheus/
-        container_name: z_configapp
+        container_name: configapp
         restart: always
+        user: root
         ports:
             - 3000:3000
         image: configapp:latest
