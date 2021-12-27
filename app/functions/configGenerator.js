@@ -75,7 +75,7 @@ function configGenerator(reqObject) {
     params:
       module: [${BB_module}]
     static_configs:
-      - targets:clear
+      - targets:
 `
     let modules_targets = ''
 
