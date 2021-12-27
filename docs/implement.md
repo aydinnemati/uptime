@@ -111,3 +111,7 @@ $ docker build -t configapp .
 ```
 $ docker-compose up -d
 ```
+- it's ready to go, just post your first request and wait for it.
+
+
+## *__HAVE fUN :)__*
